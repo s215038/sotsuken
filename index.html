@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-match-puzzle</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<script>
+    function scroll_aboutRule(){
+        const aboutRule = document.getElementById("about-rule");
+        window.scroll({top: aboutRule.getBoundingClientRect().top + window.scrollY, behavior:"smooth"});
+    }
+</script>
+
+<body>
+
+    <header>
+        <img src="item/logo.png" alt="">
+        <div class="header-text">
+            <p class="catchcopy">—— 配られた札の中で３枚ずつ選び、<br>スコアを上げていくパズル</p>
+            <p class="message">複雑にならずに、かつ程よく考えさせるようにルールを組み立てて、スマートフォンでもできるように画面構成や操作面をデザインしていった。モード変更によって、違った楽しみ方もでき、誰もが満足できる内容を目指し制作にあたった。</p>
+            <button type="button" onclick="scroll_aboutRule()"><span style="font-size: 16px; font-weight: bolder;">↓</span> ルールを確認する</button>
+        </div>
+    </header>
+
+    <main>
+        <div id="textBox_aboutGame">
+            <div id="gameText-width">
+                <div class="gameText" id="myClassText"></div>
+                <div class="gameText" id="scoreText">0</div>
+            </div>
+        </div>
+
+        <div class="screen-width" id="main-content">
+
+            <div class="content-width">
+                <div class="puzzle-part">
+                    <div id="cpuBoard-flex">
+                        <div class="board cpuBoard" id="cpuBoardId_0"></div>
+                        <div class="board cpuBoard" id="cpuBoardId_1"></div>
+                        <div class="board cpuBoard" id="cpuBoardId_2"></div>
+                    </div>
+
+                    <div id="cpuBoard-set">
+                        <div class="setCpuBoard-elements">
+                            <div class="judgeText" id="judgeText_cpu"><br></div>
+                            <div class="board cpuBoard" id="setCpuBoard"></div>
+                        </div>
+                    </div>
+
+                    <div id="myBoard-set">
+                        <div class="setMyBoard-elements">
+                            <div class="board myBoard" id="setMyBoard_0"></div>
+                            <div class="judgeText" id="judgeText_m0"><br></div>
+                        </div>
+                        <div class="setMyBoard-elements">
+                            <div class="board myBoard" id="setMyBoard_1"></div>
+                            <div class="judgeText" id="judgeText_m1"><br></div>
+                        </div>
+                        <div class="setMyBoard-elements">
+                            <div class="board myBoard" id="setMyBoard_2"></div>
+                            <div class="judgeText" id="judgeText_m2"><br></div>
+                        </div>
+                    </div>
+
+                    <div class="myBoard-flex" id="myBoard-flex-first">
+                        <div class="board myBoard" id="myBoardId_0"></div>
+                        <div class="board myBoard" id="myBoardId_1"></div>
+                        <div class="board myBoard" id="myBoardId_2"></div>
+                    </div>
+                    <div class="myBoard-flex">
+                        <div class="board myBoard" id="myBoardId_3"></div>
+                        <div class="board myBoard" id="myBoardId_4"></div>
+                        <div class="board myBoard" id="myBoardId_5"></div>
+                    </div>
+                    <div class="myBoard-flex">
+                        <div class="board myBoard" id="myBoardId_6"></div>
+                        <div class="board myBoard" id="myBoardId_7"></div>
+                        <div class="board myBoard" id="myBoardId_8"></div>
+                    </div>
+                    <div class="myBoard-flex">
+                        <div class="board myBoard" id="myBoardId_9"></div>
+                        <div class="board myBoard" id="myBoardId_10"></div>
+                        <div class="board myBoard" id="myBoardId_11"></div>
+                    </div>
+                </div>
+
+                <div class="current-mode">
+                    <p><span id="current-mode-heading">現在のモード</span>
+                    <br><span id="current-eventBoard_mode">特殊ボタン：あり</span>
+                    <br><span id="current-rank_mode">ランク：固定</span>
+                    <br><span id="current-score_mode">スコア：ノーマル</span></p>
+                </div>
+            </div>
+
+            <div class="mode-select-width">
+                <div class="mode-select-container">
+                    <h2 class="mode-select-heading">モード変更</h2>
+                    <p class="mode-heading">特殊ボタン</p>
+                    <div class="mode-select-flex">
+                        <button type="button" class="mode-select-button" id="presence">あり</button>
+                        <button type="button" class="mode-select-button" id="absence">なし</button>
+                    </div>
+
+                    <p class="mode-heading">ランク</p>
+                    <div class="mode-select-flex">
+                        <button type="button" class="mode-select-button" id="fixed">固定</button>
+                        <button type="button" class="mode-select-button" id="random">ランダム</button>
+                    </div>
+
+                    <p class="mode-heading">スコア</p>
+                    <div class="mode-select-flex">
+                        <button type="button" class="mode-select-button" id="normal">ノーマル</button>
+                        <button type="button" class="mode-select-button" id="streak">連勝</button>
+                    </div>
+
+                    <button type="button" class="retry-button">設定を反映してリトライ</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="screen-width" id="about-rule">
+
+            <h2>札・ボタンについて</h2>
+            <div class="explain_boardRelation">
+                <img src="item/relation_sign.png" alt="#">
+                <img src="item/relation_rank.png" alt="#">
+            </div>
+
+            <table class="explain_buttonEffect">
+                <tr>
+                    <th><img class="about-rule-image_btn" src="item/handchange-btn1.png"></th> <td>左に置いた札の図を その図に勝てる図に変える。スコア-2(スコアが「ノーマル」のとき)</td>
+                </tr>
+                <tr>
+                    <th><img class="about-rule-image_btn" src="item/handchange-btn2.png"></th> <td>左と中央に置いた札の図を それぞれその図に勝てる図に変える。スコア-2(スコアが「ノーマル」のとき)</td>
+                </tr>
+                <tr>
+                    <th><img class="about-rule-image_btn" src="item/handchange-btn3.png"></th> <td>左に置いた札の図を その図に負ける図に変える。スコア-2(スコアが「ノーマル」のとき)</td>
+                </tr>
+                <tr>
+                    <th><img class="about-rule-image_btn" src="item/handchange-btn4.png"></th> <td>左と中央に置いた札の図を それぞれその図に負ける図に変える。スコア-2(スコアが「ノーマル」のとき)</td>
+                </tr>
+                <tr>
+                    <th><img class="about-rule-image_btn" src="item/rankup-btn.png"></th> <td>左に置いた札のランクを1つ上げる。スコア-3(スコアが「ノーマル」のとき)</td>
+                </tr>
+                <tr><td class="supplement" colspan="2">※特殊ボタンが「あり」のとき、1セット毎に図を変えるボタンとランクを上げるボタンを1つずつ使える。</td></tr>
+                <tr>
+                    <th><img class="about-rule-image_btn" src="item/vs-btn.png"></th> <td>コンピュータの札を公開し、勝敗の判定を行う。</td>
+                </tr>
+            </table>
+
+            <h2>進め方（動画）</h2>
+            <div class="explain_gameFlow">
+                <video src="item/rule_movie.mp4" muted controls></video>
+            </div>
+
+            <h2>スコアの増減</h2>
+            <table class="scoreGraph">
+                <tr class="rank-part">
+                    <th>　</th> <td colspan="3">ランク(コンピュータの札)</td>
+                </tr>
+                <tr class="rank-part">
+                    <th>　</th>
+                    <td><img class="about-rule-image_board" src="item/choboard_1.png"></td>
+                    <td><img class="about-rule-image_board" src="item/choboard_2.png"></td>
+                    <td><img class="about-rule-image_board" src="item/choboard_3.png"></td>
+                </tr>
+                <tr class="scoring-part">
+                    <th class="judge-part" style="border-bottom: solid 1px #888;">勝ち</th> <td>+2</td> <td>+3</td> <td>+5</td>
+                </tr>
+                <tr class="scoring-part">
+                    <th class="judge-part">負け</th> <td>-5</td> <td>-3</td> <td>-2</td>
+                </tr>
+            </table>
+            <p>スコアが「連勝」の場合、勝てばスコアが+1され、負けたらスコアが0になる。引き分けはスコアの増減なし。</p>
+        </div>
+        
+        <script src="mode.js">
+            let eventBoard_mode; let rank_mode; let judge_mode; let score_mode;
+        </script>
+        <script src="script.js"></script>
+    </main>
+
+    <footer>
+        <p>情報デザイン学科　卒業制作</p>
+        <p><small>&copy; 2025 215038中村</small></p>
+    </footer>
+    
+</body>
+
+</html>
